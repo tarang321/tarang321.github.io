@@ -3,193 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
+    <title>Tarang | VLSI & UAV Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* --- CSS Variables for the Futuristic Theme --- */
         :root {
-            --bg-color: #0a0a0a;
+            --bg-color: #050505;
+            --card-bg: #0f0f12;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent-cyan: #00f2ff;
-            --accent-purple: #bd00ff;
-            --section-height: 100vh;
+            --text-dim: #888888;
+            --accent-main: #00f2ff; /* Cyan for Tech */
+            --accent-warn: #ff2a2a; /* Red for "Defense/Army" vibe */
+            --accent-vlsi: #bd00ff; /* Purple for Silicon/VLSI */
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Rajdhani', sans-serif; /* Tech font */
             overflow-x: hidden;
         }
 
-        /* --- General Typography & Layout --- */
-        h1 { font-size: 5rem; font-weight: 900; letter-spacing: -2px; line-height: 1; text-transform: uppercase;}
-        h2 { font-size: 3rem; font-weight: 700; margin-bottom: 20px; }
-        p { font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; line-height: 1.6; }
-        .accent-text { color: var(--accent-cyan); }
+        /* --- TYPOGRAPHY --- */
+        h1 { 
+            font-family: 'Syncopate', sans-serif; /* Wide futuristic header */
+            font-size: 4rem; 
+            text-transform: uppercase; 
+            line-height: 1.1;
+        }
         
-        /* A subtle digital grid overlay for futuristic feel */
-        .grid-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 0;
+        h2 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;}
+        h3 { font-size: 1.8rem; letter-spacing: 1px; color: var(--text-primary); }
+        p { font-size: 1.2rem; color: var(--text-dim); line-height: 1.6; max-width: 600px; }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid var(--accent-main);
+            color: var(--accent-main);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        /* --- SECTION STYLES --- */
+        .highlight-red { color: var(--accent-warn); }
+        .highlight-cyan { color: var(--accent-main); }
+
+        /* --- BACKGROUND EFFECTS --- */
+        .scanline {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none; z-index: 10; opacity: 0.3;
+        }
+
+        /* --- SECTIONS --- */
         section {
-            position: relative;
-            height: var(--section-height);
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            height: 100vh; width: 100%;
+            display: flex; flex-direction: column; justify-content: center;
             padding: 0 10vw;
-            /* Ensure sections stack properly for pinning */
-            z-index: 1; 
+            position: relative; z-index: 2;
         }
 
-        /* --- SECTION 1: HERO --- */
-        #hero {
-            align-items: flex-start;
-        }
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
-            display: block;
-        }
+        /* HERO */
+        #hero { align-items: flex-start; }
+        .hero-sub { color: var(--accent-vlsi); letter-spacing: 4px; font-weight: 700; margin-bottom: 20px; display:block; }
 
-        /* --- SECTION 2: THE MISSION (Pinned Section) --- */
-        #mission {
-            background-color: #0f0f14; /* Slightly lighter dark */
-            overflow: hidden;
-        }
-        .mission-content {
-            opacity: 0; /* Hidden initially, shown by GSAP */
-            transform: translateY(50px);
-        }
-        
-        /* --- SECTION 3: PROJECT SHOWCASE (Horizontal Scroll illusion) --- */
-        #showcase-container {
-            height: 300vh; /* Make this tall so we have room to scroll "through" it */
+        /* ABOUT */
+        #about { background-color: var(--card-bg); }
+        .stats-grid { display: flex; gap: 40px; margin-top: 40px; }
+        .stat-item h4 { font-size: 3rem; color: var(--accent-main); }
+        .stat-item span { text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+
+        /* HORIZONTAL SCROLL CONTAINER */
+        #projects-container {
+            height: 400vh; /* Determines scroll length */
             background-color: var(--bg-color);
         }
         
-        .pinned-showcase-wrapper {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
+        .pinned-wrapper {
+            height: 100vh; width: 100%;
+            display: flex; align-items: center;
+            overflow: hidden; position: relative;
         }
 
-        .horizontal-track {
-            display: flex;
-            gap: 5vw;
-            padding-left: 10vw;
-            /* This track will be moved left by GSAP */
+        .track {
+            display: flex; gap: 5vw; padding-left: 10vw;
         }
 
-        .project-card {
-            min-width: 60vw;
-            height: 70vh;
-            background: linear-gradient(45deg, #1a1a24, #0a0a0a);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+        /* PROJECT CARDS */
+        .card {
+            min-width: 60vw; height: 70vh;
+            background: #111;
+            border: 1px solid #333;
             padding: 40px;
+            display: flex; flex-direction: column; justify-content: flex-end;
             position: relative;
+            transition: border-color 0.3s;
         }
         
-        .project-card::before {
-             content: '';
-             position: absolute;
-             top:0; left:0; width: 100%; height: 5px;
-             background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+        .card:hover { border-color: var(--accent-main); }
+
+        /* Custom Card Borders/Decorations */
+        .card::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 30px; height: 30px;
+            border-top: 2px solid var(--accent-main);
+            border-right: 2px solid var(--accent-main);
         }
 
-        /* --- SECTION 4: OUTRO --- */
-        #outro {
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0a 70%);
+        .card-number {
+            position: absolute; top: 20px; left: 30px;
+            font-size: 4rem; opacity: 0.1; font-weight: 900;
         }
+
+        .project-tag { 
+            color: var(--accent-vlsi); 
+            font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: block;
+        }
+
+        /* CONTACT */
+        #contact { text-align: center; align-items: center; background: radial-gradient(circle, #1a1a1a 0%, #000 70%); }
+        .btn {
+            margin-top: 30px; padding: 15px 40px;
+            background: transparent; border: 1px solid var(--accent-main);
+            color: var(--accent-main); font-family: 'Rajdhani'; letter-spacing: 2px;
+            text-decoration: none; text-transform: uppercase;
+            transition: 0.3s; cursor: pointer;
+        }
+        .btn:hover { background: var(--accent-main); color: #000; box-shadow: 0 0 20px var(--accent-main); }
 
     </style>
 </head>
 <body>
 
-    <div class="grid-overlay"></div>
+    <div class="scanline"></div>
 
     <section id="hero">
-        <div class="hero-content">
-            <span class="hero-subtitle">/// WELCOME TO THE FUTURE</span>
-            <h1>CREATING<br><span class="accent-text">DIGITAL REALITIES</span></h1>
+        <div>
+            <span class="hero-sub">M.TECH VLSI // UAV SPECIALIST</span>
+            <h1>ENGINEERING<br><span class="highlight-cyan">THE UNJAMMABLE</span></h1>
+            <p style="margin-top: 20px;">Bridging the gap between Silicon Architecture and Defense-Grade Autonomous Systems.</p>
         </div>
     </section>
 
-
-    <section id="mission">
-        <div class="mission-content">
-            <h2>THE <span style="color: var(--accent-purple)">MISSION</span>.</h2>
-            <p>We have moved beyond static pages. The web is now an immersive experience defined by motion, depth, and interaction. I build interfaces that react to human intent.</p>
+    <section id="about">
+        <div class="about-content">
+            <span class="badge">SYSTEM STATUS: ONLINE</span>
+            <h2>HARDWARE <span class="highlight-red">DEFINED</span>.</h2>
+            <p>I don't just write code; I design the hardware it runs on. Specializing in RISC-V architecture, Anti-Jamming protocols, and Embedded Control Systems for high-stakes environments.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>C/C++</h4>
+                    <span>Core Language</span>
+                </div>
+                <div class="stat-item">
+                    <h4>RISC-V</h4>
+                    <span>Architecture</span>
+                </div>
+                <div class="stat-item">
+                    <h4>RTOS</h4>
+                    <span>Real-Time Control</span>
+                </div>
+            </div>
         </div>
     </section>
 
+    <div id="projects-container">
+        <div class="pinned-wrapper">
+            <div class="track">
+                
+                <div class="card">
+                    <span class="card-number">01</span>
+                    <span class="project-tag">DEFENSE TECH // POST-OP SINDOOR</span>
+                    <h3>ANTI-JAMMING OPTICAL DRONE</h3>
+                    <p>Designed for the Indian Army. A fiber-optic tethered UAV system immune to RF jamming and spoofing. Successfully field-tested at Army Camp.</p>
+                </div>
 
-    <div id="showcase-container">
-        <div class="pinned-showcase-wrapper">
-            <div class="horizontal-track">
-                <div class="project-card">
-                    <h3>PROJECT NEON ALPHA</h3>
-                    <p>Interactive 3D WebGL Experience</p>
+                <div class="card">
+                    <span class="card-number">02</span>
+                    <span class="project-tag">EMBEDDED HARDWARE</span>
+                    <h3>ARJUN NANO V</h3>
+                    <p>Custom-designed RISC-V microcontroller board. Engineered from the PCB up for dedicated embedded tasks.</p>
                 </div>
-                <div class="project-card" style="background: linear-gradient(45deg, #241a24, #0a0a0a);">
-                    <h3>CYBERPUNK UI KIT</h3>
-                    <p>Next-gen interface design system</p>
+
+                <div class="card">
+                    <span class="card-number">03</span>
+                    <span class="project-tag">M.TECH RESEARCH</span>
+                    <h3>SECURE QUADROTOR CONTROL</h3>
+                    <p>Development of autonomous recovery algorithms for UAVs under Denial-of-Service (DoS) cyber-attacks. Implementing FHSS hardware modules.</p>
                 </div>
-                <div class="project-card">
-                    <h3>DATA VISUALIZER</h3>
-                    <p>Real-time complex data rendering</p>
-                </div>
-                 <div style="min-width: 10vw;"></div>
+
+                <div style="min-width: 20vw;"></div>
             </div>
         </div>
     </div>
 
-
-    <section id="outro">
-        <h2>READY TO <span class="accent-text">ENGAGE</span>?</h2>
-        <p>Find me on GitHub to see the code behind the motion.</p>
+    <section id="contact">
+        <h2>READY TO <span class="highlight-cyan">DEPLOY</span>?</h2>
+        <p>Looking for roles in VLSI Design, Embedded Systems, or Defense Technology.</p>
+        <a href="mailto:your-email@example.com" class="btn">INITIATE CONTACT</a>
     </section>
 
-
     <script>
-        // Register the ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // --- ANIMATION 1: HERO PARALLAX ---
-        // As you scroll down, the hero text moves up faster than the scroll speed
-        gsap.to(".hero-content", {
+        // 1. Hero Text Parallax (Moves slower than scroll)
+        gsap.to("#hero div", {
             yPercent: -50,
+            opacity: 0,
             ease: "none",
             scrollTrigger: {
                 trigger: "#hero",
@@ -199,43 +228,33 @@
             }
         });
 
-        // --- ANIMATION 2: MISSION PIN & FADE ---
-        // Pin the Mission section when it hits the center of the screen
-        // Then fade in its content while scrolling through it.
-        ScrollTrigger.create({
-            trigger: "#mission",
-            start: "top center", // start when top of section hits center of viewport
-            end: "+=800", // pin for 800px of scrolling
-            pin: true,
-            animation: gsap.to(".mission-content", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
-            }),
-            scrub: 1 // smooth scrubbing
-        });
-
-
-        // --- ANIMATION 3: HORIZONTAL SHOWCASE (The DJI Effect) ---
-        let track = document.querySelector(".horizontal-track");
-        
-        // Calculate how far the track needs to move left. 
-        // Total width of track minus width of the screen.
-        let scrollDistance = track.offsetWidth - window.innerWidth;
-
-        gsap.to(track, {
-            x: -scrollDistance, // Move left by this amount
-            ease: "none",
+        // 2. Reveal About Section
+        gsap.from(".about-content", {
+            y: 100,
+            opacity: 0,
+            duration: 1,
             scrollTrigger: {
-                trigger: "#showcase-container",
-                pin: ".pinned-showcase-wrapper", // Pin the wrapper
-                start: "top top", // Start when container hits top of screen
-                end: "bottom bottom", // End when bottom of container hits bottom of screen
-                scrub: 1.5 // Slower, smoother scrub for premium feel
+                trigger: "#about",
+                start: "top center",
+                toggleActions: "play none none reverse"
             }
         });
 
+        // 3. Horizontal Scroll (The "DJI" Effect)
+        let track = document.querySelector(".track");
+        let scrollDistance = track.offsetWidth - window.innerWidth;
+
+        gsap.to(track, {
+            x: -scrollDistance, 
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#projects-container",
+                pin: ".pinned-wrapper",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1
+            }
+        });
     </script>
 </body>
 </html>
