@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarang | VLSI & UAV Engineer</title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --bg-color: #050505;
-            --card-bg: #0f0f12;
+            --bg-color: #000000; /* Pure Black for contrast */
             --text-primary: #ffffff;
-            --text-dim: #888888;
-            --accent-main: #00f2ff; /* Cyan for Tech */
-            --accent-warn: #ff2a2a; /* Red for "Defense/Army" vibe */
-            --accent-vlsi: #bd00ff; /* Purple for Silicon/VLSI */
+            --accent-main: #00f2ff; /* Cyan Neon */
+            --accent-warn: #ff2a2a; 
+            --accent-vlsi: #bd00ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,131 +22,153 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: 'Rajdhani', sans-serif; /* Tech font */
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
         }
 
         /* --- TYPOGRAPHY --- */
         h1 { 
-            font-family: 'Syncopate', sans-serif; /* Wide futuristic header */
-            font-size: 4rem; 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 4.5rem; 
             text-transform: uppercase; 
-            line-height: 1.1;
+            line-height: 1;
+            margin-bottom: 20px;
         }
         
         h2 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;}
-        h3 { font-size: 1.8rem; letter-spacing: 1px; color: var(--text-primary); }
-        p { font-size: 1.2rem; color: var(--text-dim); line-height: 1.6; max-width: 600px; }
+        h3 { font-size: 2rem; letter-spacing: 1px; color: var(--text-primary); margin-bottom: 10px; }
+        p { font-size: 1.1rem; color: #888; line-height: 1.6; max-width: 500px; }
         
         .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border: 1px solid var(--accent-main);
-            color: var(--accent-main);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+            display: inline-block; padding: 5px 10px; border: 1px solid var(--accent-main);
+            color: var(--accent-main); font-size: 0.8rem; letter-spacing: 2px;
+            margin-bottom: 15px; text-transform: uppercase;
         }
 
+        .highlight-cyan { color: var(--accent-main); text-shadow: 0 0 20px rgba(0, 242, 255, 0.5); }
         .highlight-red { color: var(--accent-warn); }
-        .highlight-cyan { color: var(--accent-main); }
-
-        /* --- BACKGROUND EFFECTS --- */
-        .scanline {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
-            background-size: 100% 4px;
-            pointer-events: none; z-index: 10; opacity: 0.3;
-        }
 
         /* --- SECTIONS --- */
         section {
             height: 100vh; width: 100%;
             display: flex; flex-direction: column; justify-content: center;
-            padding: 0 10vw;
-            position: relative; z-index: 2;
+            padding: 0 5vw; position: relative; z-index: 2;
         }
 
-        /* HERO */
-        #hero { align-items: flex-start; }
-        .hero-sub { color: var(--accent-vlsi); letter-spacing: 4px; font-weight: 700; margin-bottom: 20px; display:block; }
-
-        /* ABOUT */
-        #about { background-color: var(--card-bg); }
-        .stats-grid { display: flex; gap: 40px; margin-top: 40px; }
-        .stat-item h4 { font-size: 3rem; color: var(--accent-main); }
-        .stat-item span { text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-
-        /* HORIZONTAL SCROLL CONTAINER */
-        #projects-container {
-            height: 400vh; /* Determines scroll length */
-            background-color: var(--bg-color);
+        /* --- HERO SECTION (Split Layout) --- */
+        #hero {
+            flex-direction: row; /* Side by side */
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden; /* Prevents scrollbar if glow is too big */
         }
         
+        .hero-text-container {
+            flex: 1;
+            z-index: 2;
+            padding-left: 5vw;
+        }
+        
+        .hero-sub { 
+            color: var(--accent-vlsi); 
+            letter-spacing: 4px; 
+            font-weight: 700; 
+            margin-bottom: 20px; 
+            display:block; 
+            font-size: 0.9rem;
+        }
+
+        /* THE PHOTO CONTAINER */
+        .hero-photo-container {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: flex-end; /* Align image to bottom */
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* THE NEON GLOW MAGIC */
+        .hero-photo {
+            max-height: 85vh; /* Tall image */
+            width: auto;
+            object-fit: contain;
+            /* This filter creates the neon outline automatically */
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.8)) 
+                    drop-shadow(0 0 50px rgba(0, 242, 255, 0.4));
+            z-index: 1;
+        }
+
+        /* ABOUT */
+        #about { background-color: #0a0a0a; padding: 0 10vw; }
+        .stats-grid { display: flex; gap: 40px; margin-top: 40px; }
+        .stat-item h4 { font-size: 3rem; color: var(--accent-main); }
+
+        /* PROJECTS SCROLL */
+        #projects-container { height: 400vh; background-color: var(--bg-color); }
         .pinned-wrapper {
             height: 100vh; width: 100%;
             display: flex; align-items: center;
             overflow: hidden; position: relative;
         }
+        .track { display: flex; gap: 5vw; padding-left: 10vw; }
 
-        .track {
-            display: flex; gap: 5vw; padding-left: 10vw;
-        }
-
-        /* PROJECT CARDS */
         .card {
             min-width: 60vw; height: 70vh;
             background: #111;
-            border: 1px solid #333;
+            position: relative; border: 1px solid #333;
+            overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
             padding: 40px;
-            display: flex; flex-direction: column; justify-content: flex-end;
-            position: relative;
-            transition: border-color 0.3s;
         }
-        
-        .card:hover { border-color: var(--accent-main); }
-
-        /* Custom Card Borders/Decorations */
-        .card::after {
-            content: ''; position: absolute; top: 0; right: 0;
-            width: 30px; height: 30px;
-            border-top: 2px solid var(--accent-main);
-            border-right: 2px solid var(--accent-main);
+        .card-bg-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.6; transition: transform 0.5s ease; z-index: 0;
         }
-
+        .card:hover .card-bg-img { transform: scale(1.05); opacity: 0.8; }
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.2));
+            z-index: 1; pointer-events: none;
+        }
+        .card-content { position: relative; z-index: 2; }
         .card-number {
-            position: absolute; top: 20px; left: 30px;
-            font-size: 4rem; opacity: 0.1; font-weight: 900;
+            position: absolute; top: 20px; right: 30px;
+            font-size: 4rem; color: rgba(255,255,255,0.2); font-weight: 900; z-index: 2;
         }
-
         .project-tag { 
-            color: var(--accent-vlsi); 
-            font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: block;
+            color: var(--accent-vlsi); font-size: 0.9rem; letter-spacing: 2px; 
+            text-transform: uppercase; margin-bottom: 10px; display: block;
         }
 
         /* CONTACT */
         #contact { text-align: center; align-items: center; background: radial-gradient(circle, #1a1a1a 0%, #000 70%); }
         .btn {
-            margin-top: 30px; padding: 15px 40px;
-            background: transparent; border: 1px solid var(--accent-main);
-            color: var(--accent-main); font-family: 'Rajdhani'; letter-spacing: 2px;
-            text-decoration: none; text-transform: uppercase;
-            transition: 0.3s; cursor: pointer;
+            margin-top: 30px; padding: 15px 40px; border: 1px solid var(--accent-main);
+            color: var(--accent-main); text-decoration: none; text-transform: uppercase;
+            transition: 0.3s;
         }
         .btn:hover { background: var(--accent-main); color: #000; box-shadow: 0 0 20px var(--accent-main); }
-
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #hero { flex-direction: column; justify-content: center; padding-top: 100px;}
+            h1 { font-size: 2.5rem; }
+            .hero-photo { max-height: 50vh; margin-top: 20px; }
+            .hero-text-container { padding-left: 0; text-align: center; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
-
     <section id="hero">
-        <div>
+        <div class="hero-text-container">
             <span class="hero-sub">M.TECH VLSI // UAV SPECIALIST</span>
             <h1>ENGINEERING<br><span class="highlight-cyan">THE UNJAMMABLE</span></h1>
-            <p style="margin-top: 20px;">Bridging the gap between Silicon Architecture and Defense-Grade Autonomous Systems.</p>
+            <p>Bridging the gap between Silicon Architecture and Defense-Grade Autonomous Systems.</p>
+        </div>
+        
+        <div class="hero-photo-container">
+            <img src="hero-photo.png" class="hero-photo" alt="Tarang Profile">
         </div>
     </section>
 
@@ -157,21 +176,11 @@
         <div class="about-content">
             <span class="badge">SYSTEM STATUS: ONLINE</span>
             <h2>HARDWARE <span class="highlight-red">DEFINED</span>.</h2>
-            <p>I don't just write code; I design the hardware it runs on. Specializing in RISC-V architecture, Anti-Jamming protocols, and Embedded Control Systems for high-stakes environments.</p>
-            
+            <p>I don't just write code; I design the hardware it runs on. Specializing in RISC-V architecture, Anti-Jamming protocols, and Embedded Control Systems.</p>
             <div class="stats-grid">
-                <div class="stat-item">
-                    <h4>C/C++</h4>
-                    <span>Core Language</span>
-                </div>
-                <div class="stat-item">
-                    <h4>RISC-V</h4>
-                    <span>Architecture</span>
-                </div>
-                <div class="stat-item">
-                    <h4>RTOS</h4>
-                    <span>Real-Time Control</span>
-                </div>
+                <div class="stat-item"><h4>C/C++</h4><span>Core</span></div>
+                <div class="stat-item"><h4>RISC-V</h4><span>Arch</span></div>
+                <div class="stat-item"><h4>RTOS</h4><span>Control</span></div>
             </div>
         </div>
     </section>
@@ -179,28 +188,36 @@
     <div id="projects-container">
         <div class="pinned-wrapper">
             <div class="track">
-                
                 <div class="card">
+                    <img src="project1.jpg" class="card-bg-img" alt="Drone Project">
+                    <div class="card-overlay"></div>
                     <span class="card-number">01</span>
-                    <span class="project-tag">DEFENSE TECH // POST-OP SINDOOR</span>
-                    <h3>ANTI-JAMMING OPTICAL DRONE</h3>
-                    <p>Designed for the Indian Army. A fiber-optic tethered UAV system immune to RF jamming and spoofing. Successfully field-tested at Army Camp.</p>
+                    <div class="card-content">
+                        <span class="project-tag">DEFENSE TECH // POST-OP SINDOOR</span>
+                        <h3>ANTI-JAMMING OPTICAL DRONE</h3>
+                        <p>Fiber-optic tethered UAV system immune to RF jamming. Successfully field-tested at Army Camp.</p>
+                    </div>
                 </div>
-
                 <div class="card">
+                    <img src="project2.jpg" class="card-bg-img" alt="Arjun Board">
+                    <div class="card-overlay"></div>
                     <span class="card-number">02</span>
-                    <span class="project-tag">EMBEDDED HARDWARE</span>
-                    <h3>ARJUN NANO V</h3>
-                    <p>Custom-designed RISC-V microcontroller board. Engineered from the PCB up for dedicated embedded tasks.</p>
+                    <div class="card-content">
+                        <span class="project-tag">EMBEDDED HARDWARE</span>
+                        <h3>ARJUN NANO V</h3>
+                        <p>Custom-designed RISC-V microcontroller board. Engineered from the PCB up.</p>
+                    </div>
                 </div>
-
                 <div class="card">
+                    <img src="project3.jpg" class="card-bg-img" alt="Thesis">
+                    <div class="card-overlay"></div>
                     <span class="card-number">03</span>
-                    <span class="project-tag">M.TECH RESEARCH</span>
-                    <h3>SECURE QUADROTOR CONTROL</h3>
-                    <p>Development of autonomous recovery algorithms for UAVs under Denial-of-Service (DoS) cyber-attacks. Implementing FHSS hardware modules.</p>
+                    <div class="card-content">
+                        <span class="project-tag">M.TECH RESEARCH</span>
+                        <h3>SECURE QUADROTOR CONTROL</h3>
+                        <p>Autonomous recovery algorithms for UAVs under DoS attacks.</p>
+                    </div>
                 </div>
-
                 <div style="min-width: 20vw;"></div>
             </div>
         </div>
@@ -208,52 +225,32 @@
 
     <section id="contact">
         <h2>READY TO <span class="highlight-cyan">DEPLOY</span>?</h2>
-        <p>Looking for roles in VLSI Design, Embedded Systems, or Defense Technology.</p>
         <a href="mailto:your-email@example.com" class="btn">INITIATE CONTACT</a>
     </section>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Hero Text Parallax (Moves slower than scroll)
-        gsap.to("#hero div", {
-            yPercent: -50,
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
+        // Hero Animation
+        gsap.from(".hero-text-container", {
+            x: -100, opacity: 0, duration: 1.5, ease: "power3.out"
+        });
+        gsap.from(".hero-photo", {
+            x: 100, opacity: 0, duration: 1.5, ease: "power3.out", delay: 0.5
         });
 
-        // 2. Reveal About Section
+        // About Reveal
         gsap.from(".about-content", {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top center",
-                toggleActions: "play none none reverse"
-            }
+            y: 100, opacity: 0, duration: 1,
+            scrollTrigger: { trigger: "#about", start: "top center", toggleActions: "play none none reverse" }
         });
 
-        // 3. Horizontal Scroll (The "DJI" Effect)
+        // Horizontal Scroll
         let track = document.querySelector(".track");
         let scrollDistance = track.offsetWidth - window.innerWidth;
-
         gsap.to(track, {
-            x: -scrollDistance, 
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#projects-container",
-                pin: ".pinned-wrapper",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1
-            }
+            x: -scrollDistance, ease: "none",
+            scrollTrigger: { trigger: "#projects-container", pin: ".pinned-wrapper", start: "top top", end: "bottom bottom", scrub: 1 }
         });
     </script>
 </body>
