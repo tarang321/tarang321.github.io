@@ -1,0 +1,157 @@
+/* ============================================================
+   TARANG.OS — FLYING TETHERED SURVEILLANCE DRONE
+   ============================================================ */
+
+.drone-rig {
+  position: fixed; inset: 0; z-index: 46; pointer-events: none;
+  overflow: hidden;
+}
+
+/* glowing tether from top of screen to the craft */
+.tether {
+  position: absolute; top: 0; width: 2px;
+  background: linear-gradient(180deg, transparent, var(--line), var(--accent));
+  box-shadow: 0 0 8px var(--glow);
+  transform-origin: top center;
+  will-change: height, left;
+}
+.tether::after {
+  content: ''; position: absolute; top: 0; left: -1px; width: 4px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--glow));
+  filter: blur(3px); opacity: .5;
+}
+
+/* the craft — JS sets left/top + tilt on .drone; CSS bob on inner */
+.drone {
+  position: absolute; left: 86vw; top: 18vh;
+  width: 132px; height: 132px;
+  transform: translate(-50%, -50%) rotate(0deg) scale(0.4);
+  opacity: 0;
+  transition: transform .18s ease-out;
+  will-change: left, top, transform;
+}
+.drone.launched { opacity: 1; }
+.drone-inner {
+  position: absolute; inset: 0;
+  animation: droneBob 3.4s ease-in-out infinite;
+}
+@keyframes droneBob {
+  0%,100% { transform: translateY(-5px); }
+  50%     { transform: translateY(6px); }
+}
+
+/* optical scan beam sweeping the content below */
+.scan-beam {
+  position: absolute; left: 50%; top: 60px;
+  width: 230px; height: 360px;
+  transform: translateX(-50%) rotate(-13deg);
+  transform-origin: top center;
+  background: linear-gradient(180deg, var(--glow), transparent 72%);
+  clip-path: polygon(47% 0, 53% 0, 100% 100%, 0% 100%);
+  opacity: .14; mix-blend-mode: screen;
+  animation: beamSweep 4.6s ease-in-out infinite;
+}
+@keyframes beamSweep {
+  0%,100% { transform: translateX(-50%) rotate(-15deg); }
+  50%     { transform: translateX(-50%) rotate(15deg); }
+}
+
+/* X-frame arms */
+.arm {
+  position: absolute; left: 50%; top: 50%; width: 50px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--line) 80%, transparent);
+  transform-origin: left center; border-radius: 2px;
+}
+.arm.a1 { transform: rotate(-45deg); }
+.arm.a2 { transform: rotate(45deg); }
+.arm.a3 { transform: rotate(-135deg); }
+.arm.a4 { transform: rotate(135deg); }
+
+/* rotors at the four ends */
+.rotor {
+  position: absolute; width: 40px; height: 40px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid var(--line);
+  background: radial-gradient(circle, rgba(94,200,255,0.10), transparent 70%);
+}
+.rotor::before {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, var(--glow), transparent 40%, var(--glow), transparent 80%);
+  filter: blur(2px); opacity: .75;
+  animation: rotorSpin .14s linear infinite;
+}
+.rotor::after {
+  content: ''; position: absolute; inset: 42%; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 6px var(--glow);
+}
+@keyframes rotorSpin { to { transform: rotate(360deg); } }
+.r1 { left: 18px;  top: 18px; }
+.r2 { left: 114px; top: 18px; }
+.r3 { left: 18px;  top: 114px; }
+.r4 { left: 114px; top: 114px; }
+
+/* central hull + camera gimbal */
+.hull {
+  position: absolute; left: 50%; top: 50%; width: 48px; height: 48px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border: 1.6px solid var(--accent);
+  background: var(--panel-2);
+  box-shadow: 0 0 20px -4px var(--glow), inset 0 0 12px -6px var(--glow);
+}
+.cam {
+  position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff 8%, var(--accent) 42%, transparent 76%);
+  box-shadow: 0 0 18px var(--glow);
+  animation: camPulse 2.2s ease-in-out infinite;
+}
+@keyframes camPulse { 0%,100% { opacity: .7; transform: translate(-50%,-50%) scale(.85);} 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1);} }
+
+/* downward thruster flare (launch + boost) */
+.thruster {
+  position: absolute; left: 50%; bottom: -6px; width: 14px; height: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--accent), var(--warn) 60%, transparent);
+  filter: blur(2px); border-radius: 0 0 40% 40%;
+  transition: height .2s ease;
+}
+.drone.boosting .thruster { height: 60px; }
+.drone.boosting .drone-inner { animation-play-state: paused; }
+
+/* lock-on label */
+.drone-label {
+  position: absolute; top: 50%; left: -14px;
+  transform: translateX(-100%) translateY(-50%);
+  white-space: nowrap; text-align: right;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px;
+  color: var(--accent); text-shadow: 0 0 8px var(--glow);
+  padding-right: 14px;
+}
+.drone-label .dl-top { color: var(--text-faint); display: block; font-size: 9px; }
+.drone-label .dl-main { display: block; }
+.drone-label .crosshair { color: var(--warn); }
+
+/* shockwave ring fired on section lock */
+.shockwave {
+  position: absolute; left: 50%; top: 50%; width: 40px; height: 40px;
+  transform: translate(-50%,-50%); border-radius: 50%;
+  border: 2px solid var(--accent); opacity: 0; pointer-events: none;
+}
+.shockwave.fire { animation: shock .7s ease-out forwards; }
+@keyframes shock {
+  0%   { opacity: .9; transform: translate(-50%,-50%) scale(.3); }
+  100% { opacity: 0;  transform: translate(-50%,-50%) scale(3.4); }
+}
+
+/* section header gets pinged when the drone locks on */
+.sec-head.locked h2,
+.sec-head.locked .idx { animation: headPing .8s ease; }
+@keyframes headPing {
+  0% { text-shadow: 0 0 0 transparent; }
+  30% { text-shadow: 0 0 26px var(--glow); color: #fff; }
+  100% { text-shadow: 0 0 8px var(--glow); }
+}
+
+@media (max-width: 720px) {
+  .drone-rig { display: none; }
+}

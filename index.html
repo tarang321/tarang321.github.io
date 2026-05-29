@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="blue">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tarang Srivas // Embedded Systems Engineer</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/drone.css" />
+</head>
+<body class="booting" data-screen-label="Resume HUD">
+
+<!-- ambient layers -->
+<div class="backdrop"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+<div class="hud-frame"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+
+<!-- ============ FLYING TETHERED DRONE ============ -->
+<div class="drone-rig" id="droneRig" aria-hidden="true">
+  <div class="tether" id="tether"></div>
+  <div class="drone" id="drone">
+    <div class="scan-beam"></div>
+    <div class="drone-inner">
+      <span class="arm a1"></span><span class="arm a2"></span><span class="arm a3"></span><span class="arm a4"></span>
+      <span class="rotor r1"></span><span class="rotor r2"></span><span class="rotor r3"></span><span class="rotor r4"></span>
+      <span class="hull"></span><span class="cam"></span>
+      <span class="thruster"></span>
+      <span class="drone-label"><span class="dl-top">◎ OPTICAL LOCK</span><span class="dl-main"><span class="crosshair">⌖</span> <span id="droneMain">OPERATOR</span></span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOOT SEQUENCE ============ -->
+<div id="boot">
+  <div class="boot-head">SYS://INITIALIZE</div>
+  <div class="lines" id="bootLines"></div>
+  <div class="progress"><div class="pf" id="bootPf"></div></div>
+  <button class="skip" id="bootSkip">SKIP ⏎</button>
+</div>
+
+<!-- ============ TOP STATUS BAR ============ -->
+<header class="topbar">
+  <span class="sys">◢ TARANG.OS</span>
+  <span class="hide-sm">v2.26</span>
+  <span class="spacer"></span>
+  <span class="hide-sm">LAT 32.73°N · IIT JAMMU</span>
+  <span class="hide-sm">|</span>
+  <span><span class="dot"></span> &nbsp;LINK STABLE</span>
+  <span class="blink">█</span>
+  <span id="clock">--:--:--</span>
+</header>
+
+<!-- ============ SIDE NAV ============ -->
+<nav class="sidenav" id="sidenav">
+  <a href="#hero" data-sec="hero"><span class="lbl">HOME</span><span class="tick"></span></a>
+  <a href="#experience" data-sec="experience"><span class="lbl">EXPERIENCE</span><span class="tick"></span></a>
+  <a href="#projects" data-sec="projects"><span class="lbl">PROJECTS</span><span class="tick"></span></a>
+  <a href="#skills" data-sec="skills"><span class="lbl">SKILLS</span><span class="tick"></span></a>
+  <a href="#education" data-sec="education"><span class="lbl">EDUCATION</span><span class="tick"></span></a>
+  <a href="#achievements" data-sec="achievements"><span class="lbl">AWARDS</span><span class="tick"></span></a>
+  <a href="#contact" data-sec="contact"><span class="lbl">CONTACT</span><span class="tick"></span></a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow reveal">OPERATOR PROFILE // EMBEDDED + VLSI</div>
+        <h1 class="reveal d1">TARANG<br /><span class="ln2">SRIVAS</span></h1>
+        <div class="role reveal d2">Embedded Systems Engineer</div>
+        <p class="tagline reveal d3">M.Tech VLSI Design at IIT Jammu. I architect hardware from silicon to sky — firmware, custom PCBs, RTOS, and field-tested IoT systems, including a military-grade tethered surveillance drone for the Indian Army.</p>
+        <div class="cta-row reveal d4">
+          <a class="btn solid" href="#projects">▶ VIEW MISSIONS</a>
+          <a class="btn" href="uploads/Tarang_resume_Embedded.pdf" target="_blank">⤓ DOWNLOAD DOSSIER</a>
+        </div>
+      </div>
+
+      <div class="hero-readout reveal d2">
+        <div class="avatar-slot">
+          <image-slot id="avatar" style="width:100%;height:100%" shape="rounded" radius="6" placeholder="DROP OPERATOR PHOTO"></image-slot>
+        </div>
+        <div class="radar">
+          <span class="cross-h"></span><span class="cross-v"></span>
+          <span class="sweep"></span>
+          <span class="blip" style="top:32%;left:60%"></span>
+          <span class="blip" style="top:64%;left:38%;animation-delay:1.2s"></span>
+          <span class="blip" style="top:48%;left:72%;animation-delay:2.1s"></span>
+        </div>
+        <div class="stat-grid">
+          <div class="cell"><div class="k">CGPA · M.TECH</div><div class="v">8.35<small>/10</small></div></div>
+          <div class="cell"><div class="k">GATE ECE AIR</div><div class="v">6160</div></div>
+          <div class="cell"><div class="k">PROJECTS</div><div class="v">06<small>+</small></div></div>
+          <div class="cell"><div class="k">DEVICES SHIPPED</div><div class="v">30<small>+</small></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint reveal d4"><span>SCROLL TO ENGAGE</span><span class="bar"></span></div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">01</span><h2>Deployment Log</h2>
+      <span class="rule"></span><span class="meta">3 OPERATIONS</span>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-when"><span class="yr">2024</span>JAN — MAY</div>
+        <div class="panel tl-card">
+          <span class="corner-tag">OP-01</span>
+          <h3>Embedded Systems Engineer</h3>
+          <div class="org">PRILEO PRIVATE LIMITED <span class="loc">// BANGALORE</span></div>
+          <ul>
+            <li>Architected a complete IoT home-automation solution end-to-end — embedded firmware, hardware circuit design, and mobile app — enabling real-time monitoring &amp; cloud control for <b>20+ devices</b>.</li>
+            <li>Deployed <b>FreeRTOS</b> task scheduling on ESP32, boosting concurrent process efficiency by <span class="metric">+35%</span> and cutting sensor latency by <span class="metric">−40%</span>.</li>
+            <li>Directed the full product lifecycle — system architecture, PCB design, 3D CAD — delivering the prototype <span class="metric">2 weeks early</span> and reducing cost by <span class="metric">−15%</span> via in-house fabrication.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-when"><span class="yr">2023</span>JUL — OCT</div>
+        <div class="panel tl-card">
+          <span class="corner-tag">OP-02</span>
+          <h3>Embedded Systems Engineer</h3>
+          <div class="org">ROOMSVITALS <span class="loc">// CHANDIGARH</span></div>
+          <ul>
+            <li>Crafted a smart doorbell and wireless PLC for IoT home automation, achieving <span class="metric">99.5%</span> device-to-cloud uptime in live deployments.</li>
+            <li>Optimized communication protocols and device integration, improving system response time by <span class="metric">+25%</span> across <b>10+ devices</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-when"><span class="yr">2023</span>MAY — JUL</div>
+        <div class="panel tl-card">
+          <span class="corner-tag">OP-03</span>
+          <h3>Vocational Trainee</h3>
+          <div class="org">NUCLEAR POWER CORPORATION OF INDIA LTD <span class="loc">// RAWATBHATA</span></div>
+          <ul>
+            <li>Configured and validated <b>PLC-based control systems</b> for industrial automation, cutting fault-detection time by <span class="metric">−20%</span> and enhancing production-line reliability.</li>
+            <li>Documented operational workflows and safety protocols in a nuclear power plant, supporting compliance with a <span class="metric">100%</span> safety-audit pass rate.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">02</span><h2>Mission Archive</h2>
+      <span class="rule"></span><span class="meta">SELECTED BUILDS</span>
+    </div>
+    <div class="proj-grid">
+
+      <!-- FEATURED: Drone -->
+      <div class="panel feature reveal">
+        <span class="corner-tag">CLASSIFICATION // DEFENCE</span>
+        <div class="proj">
+          <span class="ptag">★ FLAGSHIP · INDIAN ARMY · J&amp;K LIGHT INFANTRY</span>
+          <h3>Surveillance Optical Tethered Drone</h3>
+          <div class="sub">GUIDED BY DR. PADMINI SINGH</div>
+          <div class="proj-body" style="margin-top:8px">
+            <p>A military-grade tethered UAV for continuous surveillance, using optical communication for secure, high-bandwidth data transfer with zero signal interference. A custom tethered power &amp; comms system extended endurance dramatically over battery UAVs. All hardware built in-house — PCB design, embedded firmware, and optical transceiver integration — delivering stable HD video streaming in adverse weather.</p>
+            <div class="big-metrics">
+              <div class="m"><div class="num">1.2<small style="font-size:14px"> Gbps</small></div><div class="lbl">Optical Bandwidth</div></div>
+              <div class="m"><div class="num">12<small style="font-size:14px"> hr</small></div><div class="lbl">Zero-Interference Test</div></div>
+              <div class="m"><div class="num">+400%</div><div class="lbl">Endurance vs Battery</div></div>
+              <div class="m"><div class="num">&lt;200<small style="font-size:14px"> ms</small></div><div class="lbl">Control Latency</div></div>
+            </div>
+          </div>
+          <div class="specs">
+            <span class="spec">OPTICAL COMMS</span><span class="spec">IN-HOUSE PCB</span><span class="spec">TETHERED POWER</span><span class="spec">HD STREAMING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <span class="corner-tag">PRJ-02</span>
+        <div class="proj">
+          <span class="ptag">2024 · COURSE PROJECT · IIT JAMMU</span>
+          <h3>Guardiano</h3>
+          <div class="sub">HUMANOID COMPANION ROBOT · DR. ANKIT DUBEY</div>
+          <p>A companion robot with embedded facial recognition for child safety — <span class="metric">97%</span> ID accuracy in real-time. FreeRTOS scheduling on ESP32 improved task execution <span class="metric">+40%</span>; Raspberry Pi handled AI processing with Firebase sync at <span class="metric">99.8%</span> reliability and sub-200ms response.</p>
+          <div class="specs"><span class="spec">FACE RECOGNITION</span><span class="spec">ESP32 · RTOS</span><span class="spec">RASPBERRY PI</span></div>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <span class="corner-tag">PRJ-03</span>
+        <div class="proj">
+          <span class="ptag">RETROFIT · ZERO-REWIRE</span>
+          <h3>Smart IoT Switchboard</h3>
+          <div class="sub">LEGACY INFRASTRUCTURE MODERNIZATION</div>
+          <p>Retrofit IoT switchboard modernizing legacy wiring with no rewire — <span class="metric">−60%</span> upgrade cost. Priority-based FreeRTOS scheduling guarantees sub-100ms manual switching alongside <span class="metric">99.5%</span> remote uptime and 5-second auto fault recovery.</p>
+          <div class="specs"><span class="spec">RETROFIT</span><span class="spec">PRIORITY RTOS</span><span class="spec">CLOUD DASHBOARD</span></div>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <span class="corner-tag">PRJ-04</span>
+        <div class="proj">
+          <span class="ptag">FULLY HANDMADE PCB</span>
+          <h3>12-Channel RF Tx/Rx Board</h3>
+          <div class="sub">1.5 KM RANGE · MANUAL ETCH &amp; DRILL</div>
+          <p>A 12-channel RF transmitter/receiver with verified <span class="metric">1.5 km</span> range and <span class="metric">98%</span> packet delivery in open field. Single-layer PCB hand-etched and drilled — <span class="metric">95%</span> first-pass success, cutting prototype time <span class="metric">−30%</span> vs outsourcing.</p>
+          <div class="specs"><span class="spec">RF DESIGN</span><span class="spec">HAND-ETCHED PCB</span><span class="spec">1.5 KM RANGE</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">03</span><h2>Systems &amp; Capabilities</h2>
+      <span class="rule"></span><span class="meta">TECH STACK</span>
+    </div>
+
+    <div class="skill-board">
+      <div class="panel reveal">
+        <div class="skill-cat">
+          <div class="cat-h">PROGRAMMING</div>
+          <div class="chips">
+            <span class="chip">C</span><span class="chip">C++</span><span class="chip">Embedded C</span>
+            <span class="chip">DSA</span><span class="chip dim">Python *</span>
+          </div>
+        </div>
+        <div class="skill-cat" style="margin-top:22px">
+          <div class="cat-h">OPERATING SYSTEMS</div>
+          <div class="chips">
+            <span class="chip">RTOS / FreeRTOS</span><span class="chip">Linux</span>
+            <span class="chip">Windows</span><span class="chip dim">Raspbian *</span>
+          </div>
+        </div>
+        <div class="skill-cat" style="margin-top:22px">
+          <div class="cat-h">DATABASE / CLOUD</div>
+          <div class="chips">
+            <span class="chip">AWS</span><span class="chip">Firebase</span><span class="chip">ThingSpeak</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel reveal d1">
+        <div class="skill-cat">
+          <div class="cat-h">COMMUNICATION PROTOCOLS</div>
+          <div class="proto-list">
+            <div class="proto-row"><span class="pname">UART</span><div class="track"><div class="fill" data-pct="92"></div></div><span class="pct">92</span></div>
+            <div class="proto-row"><span class="pname">SPI</span><div class="track"><div class="fill" data-pct="90"></div></div><span class="pct">90</span></div>
+            <div class="proto-row"><span class="pname">I2C</span><div class="track"><div class="fill" data-pct="90"></div></div><span class="pct">90</span></div>
+            <div class="proto-row"><span class="pname">MQTT</span><div class="track"><div class="fill" data-pct="85"></div></div><span class="pct">85</span></div>
+            <div class="proto-row"><span class="pname">Wi-Fi</span><div class="track"><div class="fill" data-pct="88"></div></div><span class="pct">88</span></div>
+            <div class="proto-row"><span class="pname">Bluetooth</span><div class="track"><div class="fill" data-pct="82"></div></div><span class="pct">82</span></div>
+          </div>
+        </div>
+        <div class="skill-cat" style="margin-top:22px">
+          <div class="cat-h">TOOLS &amp; EDA</div>
+          <div class="chips">
+            <span class="chip">Cadence Virtuoso</span><span class="chip">Vivado</span><span class="chip">EasyEDA</span>
+            <span class="chip">Git</span><span class="chip">Mission Planner</span><span class="chip">Canva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">04</span><h2>Training Record</h2>
+      <span class="rule"></span><span class="meta">ACADEMIC</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-when"><span class="yr">2026</span>EXPECTED</div>
+        <div class="panel tl-card">
+          <span class="corner-tag">EDU-01</span>
+          <h3>M.Tech — VLSI Design</h3>
+          <div class="org">INDIAN INSTITUTE OF TECHNOLOGY, JAMMU <span class="loc">// CGPA 8.35</span></div>
+          <ul><li>Key courses: <b>Advanced Digital System Design</b>, Introduction to IoT, Machine Learning, Deep Learning, Robotics &amp; Automation Systems.</li></ul>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-when"><span class="yr">2024</span>COMPLETED</div>
+        <div class="panel tl-card">
+          <span class="corner-tag">EDU-02</span>
+          <h3>B.Tech — ECE (IoT)</h3>
+          <div class="org">SIR PADAMPAT SINGHANIA UNIVERSITY, UDAIPUR <span class="loc">// CGPA 8.808</span></div>
+          <ul><li>Electronics &amp; Communication Engineering with Internet-of-Things specialization.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section id="achievements">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">05</span><h2>Commendations</h2>
+      <span class="rule"></span><span class="meta">HONORS</span>
+    </div>
+    <div class="ach-grid">
+      <div class="panel ach reveal"><div class="ay">2024</div><div class="rank">AIR 6160</div><h4>GATE ECE 2024</h4><p>Graduate Aptitude Test in Engineering — All India Rank.</p></div>
+      <div class="panel ach reveal d1"><div class="ay">2022 – 2023</div><h4>NCC 'C' Certificate — Grade A</h4><p>National Cadet Corps; National Trial Trek Camp.</p></div>
+      <div class="panel ach reveal d2"><div class="ay">2022 – 2023</div><div class="rank">🥇 🥉</div><h4>IEEE Ideation Medalist</h4><p>Gold &amp; Bronze; Prototype &amp; Concept Presentation Winner.</p></div>
+      <div class="panel ach reveal"><div class="ay">2023</div><h4>SPICMACAY — International Convention</h4><p>VNIT Nagpur, national cultural convention.</p></div>
+      <div class="panel ach reveal d1"><div class="ay">2018 – 2019</div><h4>Intel IRIS Fair · Indian Science Congress</h4><p>AEES Prize Recipient.</p></div>
+      <div class="panel ach reveal d2"><div class="ay">2016 – 2018</div><div class="rank">1st</div><h4>National Science Exhibition</h4><p>1st Place &amp; 2nd Runner-up across multiple years.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-inner reveal">
+      <div>
+        <div class="sec-head" style="margin-bottom:22px"><span class="idx">06</span><span class="rule"></span><span class="meta">OPEN CHANNEL</span></div>
+        <h2>Establish<br />Comms</h2>
+        <p class="sub">Available for embedded systems, VLSI, and hardware engineering roles. Signal me on any channel below.</p>
+      </div>
+      <div class="comlink">
+        <a href="mailto:tarangsrivas1@gmail.com"><span class="ck">EMAIL</span><span class="cv">tarangsrivas1@gmail.com</span><span class="arrow">↗</span></a>
+        <a href="tel:+919541312186"><span class="ck">VOICE</span><span class="cv">+91 95413 12186</span><span class="arrow">↗</span></a>
+        <a href="mailto:2024pvl0107@iitjammu.ac.in"><span class="ck">INSTITUTE</span><span class="cv">2024pvl0107@iitjammu.ac.in</span><span class="arrow">↗</span></a>
+        <a href="https://github.com/tarang321" target="_blank"><span class="ck">GITHUB</span><span class="cv">github.com/tarang321</span><span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <footer>TARANG.OS // EMBEDDED · VLSI · IoT &nbsp;—&nbsp; SYSTEM NOMINAL &nbsp;—&nbsp; © 2026</footer>
+  </div>
+</section>
+
+<!-- tweaks panel mount -->
+<div id="tweaks-root"></div>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="assets/image-slot.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/drone.js"></script>
+
+<!-- React + Babel for the Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="assets/tweaks-panel.jsx"></script>
+<script type="text/babel" src="assets/tweaks.jsx"></script>
+
+<!-- direct-edit style overrides -->
+<style id="__om-edit-overrides"></style>
+</body>
+</html>
